@@ -33,6 +33,8 @@ namespace Products.Domain
         [DataType(DataType.Date)]
         public DateTime LastPurchase { get; set; }
 
+        public string Image { get; set; } 
+
         public double stock { get; set; }
 
         [DataType(DataType.MultilineText)]

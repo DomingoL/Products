@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using Products.Backend.Models;
-using Products.Domain;
+﻿
 
 namespace Products.Backend.Controllers
 {
+    using System.Data.Entity;
+    using System.Threading.Tasks;
+    using System.Net;
+    using System.Web.Mvc;
+    using Products.Backend.Models;
+    using Products.Domain;
+    using Products.Backend.Helper;
+    using System;
+
+    [Authorize]
     public class ProductsController : Controller
     {
         private DataContextLocal db = new DataContextLocal();
@@ -50,17 +50,47 @@ namespace Products.Backend.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ProductID,CategoryId,Description,Price,IsActive,LastPurchase,stock,Remark")] Product product)
+        public async Task<ActionResult> Create(ProductView view)
         {
             if (ModelState.IsValid)
             {
+                var pic = string.Empty;
+                var folder = "~/Content/Images";
+
+                if (view.ImageFile != null)
+                {
+                    pic = FilesHelper.UnloadPhoto(view.ImageFile, folder);
+                    pic = string.Format("{0}/{1}", folder, pic);
+                    }
+
+                var product = ToProduct(view);
+
+                db.Products.Add(view);
+                product.Image = pic;
                 db.Products.Add(product);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CategoryId = new SelectList(db.Categories, "CategoryID", "Description", product.CategoryId);
-            return View(product);
+            ViewBag.CategoryId = new SelectList(db.Categories, "CategoryID", "Description", view.CategoryId);
+            return View(view);
+        }
+
+        private Product ToProduct(ProductView view)
+        {
+            return new Product
+            {
+                Category = view.Category,
+                CategoryId = view.CategoryId,
+                Description = view.Description,
+                Image = view.Image,
+                IsActive = view.IsActive,
+                LastPurchase = view.LastPurchase,
+                Price = view.Price,
+                ProductID = view.ProductID,
+                Remark = view.Remark,
+                stock = view.stock,
+            };
         }
 
         // GET: Products/Edit/5
