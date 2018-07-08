@@ -8,9 +8,12 @@ namespace Products.Models
     using Xamarin.Forms;
     using ViewModels;
     using Services;
+    using System.Threading.Tasks;
+
     public class Category
     {
         #region Services
+        DialogService dialogService;
         NavigationService navigationService;
         #endregion
 
@@ -29,11 +32,51 @@ namespace Products.Models
         #region Contructors
         public Category()
         {
+            dialogService = new DialogService();
             navigationService = new NavigationService();
         }
         #endregion
 
         #region Commands
+        public ICommand EditCommand
+        {
+            get
+            {
+                return new RelayCommand(Edit);
+            }
+        }
+
+        public ICommand DeleteCommand
+        {
+            get
+            {
+                return new RelayCommand(Delete);
+            }
+        }
+
+        async void Delete()
+        {
+            var response = await dialogService.ShowConfirm(
+                        "Confirm",
+                     "Are you sure to delete this record?");
+            if (!response)
+            {
+                return;
+            }
+
+
+            //llamamos al CategoriesViewModel, instanciamos por el singleton,llamamos al metodo de delete, pasandole el objeto actual
+            CategoriesViewModel.GetInstance().DeleteCategory(this);
+
+
+        }
+
+        async void Edit()
+        {
+            MainViewModels.GetInstance().EditCategory = new EditCategoryViewModel(this);
+            await navigationService.Navigate("EditCategoryView");
+        }
+
         public ICommand SelectCategoryCommand
         {
             get
@@ -42,7 +85,7 @@ namespace Products.Models
             }
         }
 
-       async void SelectCategory()
+        async void SelectCategory()
         {
             var mainViewModel = MainViewModels.GetInstance();
             mainViewModel.Products = new ProductsViewModel(Products);
@@ -50,5 +93,11 @@ namespace Products.Models
         }
         #endregion
 
+        #region Methods
+        public override int GetHashCode()
+        {
+            return CategoryId;
+        }
+        #endregion
     }
 }
