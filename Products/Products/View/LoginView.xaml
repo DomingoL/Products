@@ -7,7 +7,7 @@
     <ContentPage.Content>
         <StackLayout
             BindingContext="{Binding Login}"
-            Padding="8"
+            Padding="10,20,10,5"
             Spacing = "16">
             <Label
                 FontSize="Large"
@@ -16,10 +16,10 @@
                 Text="Products">
             </Label>
             <Grid
-                Margin= "50,0,50,0">
+                Margin= "0,20">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
                 <Label
                     Grid.Column="0"
@@ -74,10 +74,10 @@
                 Margin = "0,0">  
                 <Button
                     BackgroundColor="Navy"
-                    BorderRadius = "23"
+                    BorderRadius = "20"
                     Command = "{Binding LoginComand}"
                     FontAttributes = "Bold"
-                    HeightRequest = "46"
+                    HeightRequest = "40"
                     IsEnabled = "{Binding IsEnabled, Mode=TwoWay}"
                     Margin="50,0"
                     Text="Login"
@@ -85,10 +85,10 @@
                 </Button>
                 <Button
                     BackgroundColor="Purple"
-                    BorderRadius = "23"
+                    BorderRadius = "20"
                     Command = "{Binding RegisterNewUserComand}"
                     FontAttributes = "Bold"
-                    HeightRequest = "46"
+                    HeightRequest = "40"
                     IsEnabled = "{Binding IsEnabled, Mode=TwoWay}"
                     Margin="50,0"
                     Text="Register new user"
@@ -96,10 +96,10 @@
                 </Button>
                 <Button
                     BackgroundColor="Blue"
-                    BorderRadius = "23"
+                    BorderRadius = "20"
                     Command = "{Binding LoginWithFacebookComand}"
                     FontAttributes = "Bold"
-                    HeightRequest = "46"
+                    HeightRequest = "40"
                     IsEnabled = "{Binding IsEnabled, Mode=TwoWay}"
                     Margin="50,0"
                     Text="Login with Facebook"
