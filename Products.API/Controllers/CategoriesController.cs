@@ -89,7 +89,7 @@ namespace Products.API.Controllers
             {
                 if (ex.InnerException != null &&
                     ex.InnerException.InnerException != null &&
-                    ex.InnerException.Message.Contains("Index"))
+                    ex.InnerException.InnerException.Message.Contains("Index"))
                 {
                     return BadRequest("The are a record with the same description.");
                 }
@@ -121,7 +121,7 @@ namespace Products.API.Controllers
             {
                 if (ex.InnerException != null && 
                     ex.InnerException.InnerException != null &&
-                    ex.InnerException.Message.Contains("Index"))
+                    ex.InnerException.InnerException.Message.Contains("Index"))
                 {
                     return BadRequest("The are a record with the same description.");
                 }
@@ -154,7 +154,7 @@ namespace Products.API.Controllers
             {
                 if (ex.InnerException != null &&
                     ex.InnerException.InnerException != null &&
-                    ex.InnerException.Message.Contains("REFERENCE"))
+                    ex.InnerException.InnerException.Message.Contains("REFERENCE"))
                 {
                     return BadRequest("You can't delete thies record, because it has related record.");
                 }
