@@ -54,6 +54,9 @@
     <PackageReference Include="Xamarin.Android.Support.v4" Version="27.0.2" />
     <PackageReference Include="Xamarin.Android.Support.v7.CardView" Version="27.0.2" />
     <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter" Version="27.0.2" />
+    <PackageReference Include="Xam.Plugin.Connectivity">
+      <Version>3.2.0</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
@@ -92,7 +95,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Products\Products.csproj">
-      <Project>{C420A3B1-AE0A-4EC8-9AD0-FBBFBA60C688}</Project>
+      <Project>{37200986-3A4F-4A4C-AF4A-4A698D76B0FB}</Project>
       <Name>Products</Name>
     </ProjectReference>
   </ItemGroup>
