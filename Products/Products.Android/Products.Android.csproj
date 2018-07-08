@@ -85,6 +85,11 @@
     <AndroidResource Include="Resources\mipmap-xxhdpi\launcher_foreground.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\Icon.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
+    <AndroidResource Include="Resources\drawable\ic_chevron_right.png" />
+    <AndroidResource Include="Resources\drawable\ic_add_circle.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_add_circle.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_add_circle.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_add_circle.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

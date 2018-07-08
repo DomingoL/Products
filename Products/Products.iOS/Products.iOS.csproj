@@ -160,4 +160,8 @@
       <Name>Products</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_chevron_right.png" />
+    <BundleResource Include="Resources\ic_add_circle.png" />
+  </ItemGroup>
 </Project>

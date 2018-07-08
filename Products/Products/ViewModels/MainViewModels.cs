@@ -23,6 +23,16 @@ namespace Products.ViewModels
             get;
             set;
         }
+        public ProductsViewModel Products
+        {
+            get;
+            set;
+        }
+        public NewCategoryViewModel NewCategory
+        {
+            get;
+            set;
+        }
         #endregion
 
         #region Constructors
