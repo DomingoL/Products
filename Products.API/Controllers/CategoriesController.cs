@@ -110,7 +110,24 @@ namespace Products.API.Controllers
             }
 
             db.Categories.Add(category);
-            await db.SaveChangesAsync();
+
+            try
+            {
+                await db.SaveChangesAsync();
+            }
+            catch (System.Exception ex)
+            {
+                if (ex.InnerException != null && 
+                    ex.InnerException.InnerException != null &&
+                    ex.InnerException.Message.Contains("Index"))
+                {
+                    return BadRequest("The are a record with the same description.");
+                }
+                else
+                {
+                    return BadRequest(ex.Message);
+                }
+            }
 
             return CreatedAtRoute("DefaultApi", new { id = category.CategoryID }, category);
         }
