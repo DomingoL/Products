@@ -3,21 +3,33 @@ namespace Products.Services
 {
     using Xamarin.Forms;
     using System.Threading.Tasks;
+    using View;
+    using System;
+
     public class NavigationService
     {
         public async Task Navigate(string pageName)
         {
             switch (pageName)
             {
-                case "CategoriesView"
+                case "CategoriesView":
                     await Application.Current.MainPage.Navigation.PushAsync(
                            new CategoriesView());
                     break;
-                case "ProductsView"
+                case "ProductsView":
                     await Application.Current.MainPage.Navigation.PushAsync(
-                           new CategoriesView());
+                        new ProductsView());
+                    break;
+                case "NewCategoryView":
+                    await Application.Current.MainPage.Navigation.PushAsync(
+                        new NewCategoryView());
                     break;
             }
+        }
+
+        public async Task Back()
+        {
+            await Application.Current.MainPage.Navigation.PopAsync();
         }
     }
 }
