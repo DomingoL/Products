@@ -53,7 +53,9 @@ namespace Products.Models
                 return new RelayCommand(Delete);
             }
         }
+        #endregion
 
+        #region Methods
         async void Delete()
         {
             var response = await dialogService.ShowConfirm(
@@ -88,12 +90,12 @@ namespace Products.Models
         async void SelectCategory()
         {
             var mainViewModel = MainViewModels.GetInstance();
+            //Mantenemos en memoria la category seleccionada
+            mainViewModel.Category = this;
             mainViewModel.Products = new ProductsViewModel(Products);
             await navigationService.Navigate("ProductsView");
         }
-        #endregion
 
-        #region Methods
         public override int GetHashCode()
         {
             return CategoryId;

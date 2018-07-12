@@ -140,7 +140,7 @@ namespace Products.ViewModels
                 "/Categories",
                 mainViewModels.Token.TokenType,
                 mainViewModels.Token.AccessToken
-                , category);
+                ,category);
 
             if (!response.IsSuccess)
             {

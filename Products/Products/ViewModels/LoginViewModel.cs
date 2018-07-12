@@ -111,8 +111,8 @@ namespace Products.ViewModels
         public LoginViewModel()
         {
             //temporal
-          //  Email = "dlezano@imaginesoft.com.py";
-           // Password = "trodat-4913";
+            Email = "dlezano@imaginesoft.com.py";
+            Password = "trodat-4913";
 
             apiService = new ApiService();
             dialogService = new DialogService();
