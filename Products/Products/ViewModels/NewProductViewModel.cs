@@ -132,7 +132,7 @@ namespace Products.ViewModels
             dialogService = new DialogService();
             navigationService = new NavigationService();
 
-            Image = "noimage";
+            ImageSource = "noimage";
             IsActive = true;
             LastPurchase = DateTime.Today;
 

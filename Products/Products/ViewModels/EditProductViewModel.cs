@@ -6,8 +6,12 @@ namespace Products.ViewModels
     using System.ComponentModel;
     using System.Windows.Input;
     using GalaSoft.MvvmLight.Command;
+    using Plugin.Media;
+    using Plugin.Media.Abstractions;
+    using Products.Helpers;
     using Products.Models;
     using Products.Services;
+    using Xamarin.Forms;
 
     public class EditProductViewModel : INotifyPropertyChanged
     {
@@ -25,10 +29,29 @@ namespace Products.ViewModels
         bool _isRunning;
         bool _isEnabled;
         Product product;
+        ImageSource _imageSource; //atributo dependiente, por ello tiene el _
+        MediaFile file;
         #endregion
 
         #region Properties
-      
+        public ImageSource ImageSource
+        {
+            set
+            {
+                if (_imageSource != value)
+                {
+                    _imageSource = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(ImageSource)));
+                }
+            }
+            get
+            {
+                return _imageSource;
+            }
+        }
+
         public bool IsEnabled
         {
             get
@@ -123,13 +146,66 @@ namespace Products.ViewModels
             LastPurchase = product.LastPurchase;
             Stock = product.Stock.ToString();
             Remarks = product.Remarks;
-
+            ImageSource = product.ImageFullPath;
             IsEnabled = true;
         }
         #endregion
 
 
         #region Commands
+        public ICommand ChangeImageCommand
+        {
+            get
+            {
+                return new RelayCommand(ChangeImage);
+            }
+        }
+
+        async void ChangeImage()
+        {
+            await CrossMedia.Current.Initialize();
+
+            if (CrossMedia.Current.IsCameraAvailable &&
+                CrossMedia.Current.IsTakePhotoSupported)
+            {
+                var source = await dialogService.ShowImageOptions();
+
+                if (source == "Cancel")
+                {
+                    file = null;
+                    return;
+                }
+
+                if (source == "From Camera")
+                {
+                    file = await CrossMedia.Current.TakePhotoAsync(
+                        new StoreCameraMediaOptions
+                        {
+                            Directory = "Sample",
+                            Name = "test.jpg",
+                            PhotoSize = PhotoSize.Small,
+                        }
+                    );
+                }
+                else
+                {
+                    file = await CrossMedia.Current.PickPhotoAsync();
+                }
+            }
+            else
+            {
+                file = await CrossMedia.Current.PickPhotoAsync();
+            }
+
+            if (file != null)
+            {
+                ImageSource = ImageSource.FromStream(() =>
+                {
+                    var stream = file.GetStream();
+                    return stream;
+                });
+            }
+        }
         public ICommand SaveCommand
         {
             get
@@ -196,6 +272,12 @@ namespace Products.ViewModels
 
             var mainViewModel = MainViewModels.GetInstance();
 
+            byte[] imageArray = null;
+            if (file != null)
+            {
+                imageArray = FilesHelper.ReadFully(file.GetStream());
+                file.Dispose();
+            }
 
             product.Description = Description;
             product.IsActive = IsActive;
@@ -203,6 +285,8 @@ namespace Products.ViewModels
             product.Price = price;
             product.Remarks = Remarks;
             product.Stock = stock;
+            product.ImageArray = imageArray;
+
 
             var response = await apiService.Put(
                 "http://productsapiis.azurewebsites.net",

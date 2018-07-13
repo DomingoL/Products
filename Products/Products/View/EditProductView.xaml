@@ -64,6 +64,15 @@
                     Text="{Binding Remarks, Mode=TwoWay}">
                 </Entry>
 
+               <Image
+                    HeightRequest="200"
+                    Source="{Binding ImageSource}"
+                    WidthRequest="200">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ChangeImageCommand}"/>
+                    </Image.GestureRecognizers>
+                </Image> 
+
                 <Label
                     FontSize="Small"
                     HorizontalOptions="Center"

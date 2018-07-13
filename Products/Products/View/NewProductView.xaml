@@ -65,7 +65,12 @@
                         <TapGestureRecognizer Command="{Binding ChangeImageCommand}"/>
                     </Image.GestureRecognizers>
                 </Image>
-                
+                <Label
+                    FontSize = "Small"
+                    HorizontalOptions = "Center"
+                    Text = "Tap on image to change it">
+                    
+                </Label>
                 <ActivityIndicator
                     IsRunning = "{Binding IsRunning, Mode=TwoWay}"
                     VerticalOptions = "CenterAndExpand">
