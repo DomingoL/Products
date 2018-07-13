@@ -15,11 +15,10 @@ namespace Products.Models
         NavigationService navigationService;
         #endregion
 
+        #region Attributs
         public int ProductId { get; set; }
 
         public int CategoryId { get; set; }
-
-        public Category Category { get; set; }
 
         public string Description { get; set; }
 
@@ -35,6 +34,12 @@ namespace Products.Models
 
         public string Remarks { get; set; }
 
+        public byte[] ImageArray
+        {
+            get;
+            set;
+        }
+
         public string ImageFullPath
         {
             get
@@ -48,6 +53,7 @@ namespace Products.Models
                                      Image.Substring(1));
             }
         }
+        #endregion
 
         #region Contructors
         public Product()
@@ -56,7 +62,6 @@ namespace Products.Models
             navigationService = new NavigationService();
         }
         #endregion
-
 
         #region Commands
         public ICommand EditCommand
@@ -77,6 +82,14 @@ namespace Products.Models
         #endregion
 
         #region Methods
+
+        #region Methods
+        public override int GetHashCode()
+        {
+            return ProductId;
+        }
+        #endregion
+
         async void Delete()
         {
             var response = await dialogService.ShowConfirm(
@@ -86,17 +99,14 @@ namespace Products.Models
             {
                 return;
             }
-
-
             //llamamos al CategoriesViewModel, instanciamos por el singleton,llamamos al metodo de delete, pasandole el objeto actual
             ProductsViewModel.GetInstance().Delete(this);
-
 
         }
 
         async void Edit()
         {
-            MainViewModels.GetInstance().EditProductView = new EditProductViewModel(this);
+            MainViewModels.GetInstance().EditProduct = new EditProductViewModel(this);
             await navigationService.Navigate("EditProductView");
         }
         #endregion

@@ -58,10 +58,14 @@
                     Text = "{Binding Remarks, Mode=TwoWay}">
                 </Entry>
                 <Image
-                    HeightRequest = "200"
-                    Source = "{Binding Image, Mode=TwoWay}"
-                    WidthRequest = "200">
+                    HeightRequest="200"
+                    Source="{Binding ImageSource}"
+                    WidthRequest="200">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ChangeImageCommand}"/>
+                    </Image.GestureRecognizers>
                 </Image>
+                
                 <ActivityIndicator
                     IsRunning = "{Binding IsRunning, Mode=TwoWay}"
                     VerticalOptions = "CenterAndExpand">

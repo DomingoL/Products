@@ -21,6 +21,7 @@ namespace Products.ViewModels
         #region Attributes
         List<Product> products;
         ObservableCollection<Product> _products;
+        bool _isRefreshing;
         #endregion
 
         #region Services
@@ -31,8 +32,20 @@ namespace Products.ViewModels
         #region Properties
         public bool IsRefreshing
         {
-            get;
-            set;
+            get
+            {
+                return _isRefreshing;
+            }
+            set
+            {
+                if (_isRefreshing != value)
+                {
+                    _isRefreshing = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(IsRefreshing)));
+                }
+            }
         }
         public ObservableCollection<Product> Products
         {
@@ -88,6 +101,7 @@ namespace Products.ViewModels
                 products.OrderBy(c => c.Description));
             IsRefreshing = false;
         }
+
         public async Task Delete(Product product)
         {
             IsRefreshing = true;
@@ -103,7 +117,7 @@ namespace Products.ViewModels
             var mainViewModel = MainViewModels.GetInstance();
 
             var response = await apiService.Delete(
-                "http://productszuluapi.azurewebsites.net",
+                "http://productsapiis.azurewebsites.net",
                 "/api",
                 "/Products",
                 mainViewModel.Token.TokenType,
@@ -127,7 +141,6 @@ namespace Products.ViewModels
         }
 
         #endregion
-
 
         #region Singleton
         static ProductsViewModel instance;

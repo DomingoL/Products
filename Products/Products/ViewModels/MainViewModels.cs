@@ -56,7 +56,7 @@ namespace Products.ViewModels
             get;
             set;
         }
-        public EditProductViewModel EditProductView
+        public EditProductViewModel EditProduct
         {
             get;
             set;
