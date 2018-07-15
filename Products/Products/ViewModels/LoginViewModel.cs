@@ -122,12 +122,26 @@ namespace Products.ViewModels
         }
         #endregion
         #region Commands
+
         public ICommand LoginComand
         {
             get
             {
                 return new RelayCommand(Login);
             }
+        }
+        public ICommand RegisterNewUserComand
+        {
+            get
+            {
+                return new RelayCommand(RegisterNewUser);
+            }
+        }
+
+        async void RegisterNewUser()
+        {
+            MainViewModels.GetInstance().NewCustomer = new NewCustomerViewModel();
+            await navigationService.Navigate("NewCustomerView");
         }
 
         async void Login()

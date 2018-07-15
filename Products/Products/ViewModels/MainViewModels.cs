@@ -61,6 +61,11 @@ namespace Products.ViewModels
             get;
             set;
         }
+        public NewCustomerViewModel NewCustomer
+        {
+            get;
+            set;
+        }
         #endregion
 
         #region Constructors
