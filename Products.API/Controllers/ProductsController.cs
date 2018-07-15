@@ -11,9 +11,9 @@ namespace Products.API.Controllers
     using System.Threading.Tasks;
     using System.Web.Http;
     using System.Web.Http.Description;
-    using Products.API.Helpers;
-    using Products.API.Models;
     using Products.Domain;
+    using Products.API.Models;
+    using Products.API.Helpers;
 
     [Authorize]
     public class ProductsController : ApiController
