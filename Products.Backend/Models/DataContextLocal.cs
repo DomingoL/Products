@@ -9,6 +9,6 @@ namespace Products.Backend.Models
     using Products.Domain;
     public class DataContextLocal : DataContext
     {
-
+        public System.Data.Entity.DbSet<Products.Domain.Customer> Customers { get; set; }
     }
 }
