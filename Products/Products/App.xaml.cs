@@ -4,15 +4,21 @@ using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation (XamlCompilationOptions.Compile)]
 namespace Products
+
 {
     using View;
+
 	public partial class App : Application
 	{
-		public App ()
+        public static NavigationPage Navigatior { get; internal set; }
+        public static MasterView Master { get; internal set; }
+
+        public App ()
 		{
 			InitializeComponent();
 
 			MainPage = new NavigationPage(new LoginView());
+
 		}
 
 		protected override void OnStart ()

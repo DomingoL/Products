@@ -95,6 +95,9 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_add_circle.png" />
     <AndroidResource Include="Resources\drawable\ic_action_add_circle.png" />
     <AndroidResource Include="Resources\drawable\noimage.png" />
+    <AndroidResource Include="Resources\drawable\ic_exit_to_app.png" />
+    <AndroidResource Include="Resources\drawable\ic_map.png" />
+    <AndroidResource Include="Resources\drawable\ic_settings.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

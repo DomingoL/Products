@@ -107,7 +107,7 @@ namespace Products.Models
         async void Edit()
         {
             MainViewModels.GetInstance().EditProduct = new EditProductViewModel(this);
-            await navigationService.Navigate("EditProductView");
+            await navigationService.NavigateOnMaster("EditProductView");
         }
         #endregion
 

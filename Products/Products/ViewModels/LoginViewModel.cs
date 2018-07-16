@@ -141,7 +141,7 @@ namespace Products.ViewModels
         async void RegisterNewUser()
         {
             MainViewModels.GetInstance().NewCustomer = new NewCustomerViewModel();
-            await navigationService.Navigate("NewCustomerView");
+            await navigationService.NavigateOnLogin("NewCustomerView");
         }
 
         async void Login()
@@ -202,7 +202,7 @@ namespace Products.ViewModels
             var mainViewModel = MainViewModels.GetInstance();
             mainViewModel.Categories = new CategoriesViewModel();
             mainViewModel.Token = response;
-            await navigationService.Navigate("CategoriesView");
+            navigationService.SetMainPage("MasterView");
 
             IsRunning = false;
             IsEnabled = true;

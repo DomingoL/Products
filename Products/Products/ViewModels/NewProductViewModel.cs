@@ -308,7 +308,7 @@ namespace Products.ViewModels
             var productsViewModel = ProductsViewModel.GetInstance();
             productsViewModel.Add(product);
 
-            await navigationService.Back();
+            await navigationService.BackOnMaster();
 
             IsRunning = false;
             IsEnabled = true;

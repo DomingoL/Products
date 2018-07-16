@@ -141,7 +141,7 @@ namespace Products.ViewModels
             //actualizamos la categoria.
             categoriesViewModel.UpdateCategory(category);
 
-            await navigationService.Back();
+            await navigationService.BackOnMaster();
 
             IsRunning = false;
             IsEnabled = true;

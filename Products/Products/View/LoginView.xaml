@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Products.View.LoginView"
+             BackgroundColor = "{StaticResource BackgroundColor}"
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
              Title="Login">
     <ContentPage.Content>
@@ -13,6 +14,7 @@
                 FontSize="Large"
                 FontAttributes="Bold"
                 HorizontalOptions="Center"
+                TextColor = "{StaticResource FontColor}"
                 Text="Products">
             </Label>
             <Grid
@@ -25,6 +27,7 @@
                     Grid.Column="0"
                     Grid.Row="0"
                     Text="Email:"
+                TextColor = "{StaticResource FontColor}"
                     VerticalOptions = "Center">
                 </Label>
                 <Entry
@@ -38,6 +41,7 @@
                     Grid.Column="0"
                     Grid.Row="1"
                     Text="Password:"
+                TextColor = "{StaticResource FontColor}"
                     VerticalOptions="Center">
                 </Label>
                 <Entry
@@ -53,6 +57,7 @@
                 Orientation = "Horizontal">
                 <Label
                     Text = "Rememberme "
+                TextColor = "{StaticResource FontColor}"
                     VerticalOptions = "Center">
                 </Label>
                 <Switch
@@ -62,7 +67,7 @@
             <Label
                 HorizontalOptions = "Center"
                 Text = "Forgot your password?"
-                TextColor = "Blue">
+                TextColor = "{StaticResource MainColor}">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Command ="{Binding RecoverPasswordComand}"/>
                 </Label.GestureRecognizers>
@@ -73,7 +78,7 @@
             <StackLayout
                 Margin = "0,0">  
                 <Button
-                    BackgroundColor="Navy"
+                    BackgroundColor="{StaticResource AccentColor1}"
                     BorderRadius = "20"
                     Command = "{Binding LoginComand}"
                     FontAttributes = "Bold"
@@ -84,7 +89,7 @@
                     TextColor="White">
                 </Button>
                 <Button
-                    BackgroundColor="Purple"
+                    BackgroundColor="{StaticResource AccentColor2}"
                     BorderRadius = "20"
                     Command = "{Binding RegisterNewUserComand}"
                     FontAttributes = "Bold"

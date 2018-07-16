@@ -76,7 +76,7 @@ namespace Products.Models
         async void Edit()
         {
             MainViewModels.GetInstance().EditCategory = new EditCategoryViewModel(this);
-            await navigationService.Navigate("EditCategoryView");
+            await navigationService.NavigateOnMaster("EditCategoryView");
         }
 
         public ICommand SelectCategoryCommand
@@ -93,7 +93,7 @@ namespace Products.Models
             //Mantenemos en memoria la category seleccionada
             mainViewModel.Category = this;
             mainViewModel.Products = new ProductsViewModel(Products);
-            await navigationService.Navigate("ProductsView");
+            await navigationService.NavigateOnMaster("ProductsView");
         }
 
         public override int GetHashCode()
