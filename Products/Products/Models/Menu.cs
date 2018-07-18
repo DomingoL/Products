@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using Products.Services;
+using Products.ViewModels;
 
 namespace Products.Models
 {
@@ -24,6 +25,12 @@ namespace Products.Models
             get;
             set; 
         }
+        #region Constructors
+        public Menu()
+        {
+            navigationService = new NavigationService();
+        }
+        #endregion
         #region Icommands
         public ICommand NavigateCommand
         {
@@ -33,9 +40,20 @@ namespace Products.Models
             }
         }
 
-        private void Navigate()
+        async void Navigate()
         {
-            throw new NotImplementedException();
+            switch (PageName)
+            {
+                case "LoginView":
+                    var mainViewModel = MainViewModels.GetInstance();
+                    navigationService.SetMainPage(PageName);
+                    break;
+                case "UbicationsView":
+                    MainViewModels.GetInstance().Ubications =
+                        new UbicationsViewModel();
+                    await navigationService.NavigateOnMaster(PageName);
+                    break;
+            }
         }
         #endregion
 

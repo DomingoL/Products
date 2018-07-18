@@ -110,10 +110,7 @@ namespace Products.ViewModels
         #region Constructors 
         public LoginViewModel()
         {
-            //temporal
-            Email = "dlezano@imaginesoft.com.py";
-            Password = "trodat-4913";
-
+           
             apiService = new ApiService();
             dialogService = new DialogService();
             navigationService = new NavigationService();

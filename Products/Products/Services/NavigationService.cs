@@ -51,6 +51,10 @@ namespace Products.Services
                     await App.Navigatior.PushAsync(
                         new EditProductView());
                     break; 
+                case "UbicationsView":
+                    await App.Navigatior.PushAsync(
+                        new UbicationsView());
+                    break; 
 
             }
         }

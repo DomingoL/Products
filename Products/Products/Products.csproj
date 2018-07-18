@@ -11,6 +11,8 @@
     <PackageReference Include="Microsoft.Net.Http" Version="2.2.29" />
     <PackageReference Include="Xam.Plugin.Connectivity" Version="3.2.0" />
     <PackageReference Include="Xam.Plugin.Media" Version="4.0.1.1" />
+    <PackageReference Include="Xamarin.Forms.Maps" Version="3.0.0.446417" />
+    <PackageReference Include="Xam.Plugin.Geolocator" Version="4.5.0.6" />
   </ItemGroup>
 
   <ItemGroup>

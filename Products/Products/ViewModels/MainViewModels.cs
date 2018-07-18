@@ -72,6 +72,11 @@ namespace Products.ViewModels
             get;
             set;
         }
+        public UbicationsViewModel Ubications
+        {
+            get;
+            set;
+        }
         #endregion
 
         #region Constructors
