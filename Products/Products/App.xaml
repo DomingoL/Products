@@ -12,7 +12,7 @@
                    <!-- Colors -->
             <Color x:Key="MainColor">#1CA5B8</Color>
             <Color x:Key="FontColor">#012C40</Color>
-            <Color x:Key="AccentColor1">#FF5521</Color>
+            <Color x:Key="AccentColor1">#851E26</Color>
             <Color x:Key="AccentColor2">#4DB84B</Color>
             <Color x:Key="BackgroundColor">#DAEBF2</Color>
         </ResourceDictionary>

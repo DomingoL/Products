@@ -9,7 +9,7 @@ namespace Products.Droid
     using Android.Views;
     using Android.Widget;
     using Android.OS;
-    [Activity(Label = "Products", Icon = "@mipmap/icon", Theme = "@style/MainTheme", 
+    [Activity(Label = "Products", Icon = "@drawable/ic_launcher", Theme = "@style/MainTheme", 
               MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {

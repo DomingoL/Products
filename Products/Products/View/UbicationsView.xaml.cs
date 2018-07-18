@@ -6,6 +6,8 @@ namespace Products.View
     using ViewModels;
     using Xamarin.Forms;
     using Xamarin.Forms.Maps;
+    using ViewModels;
+    using System;
 
     public partial class UbicationsView : ContentPage
     {
@@ -38,9 +40,18 @@ namespace Products.View
                     position,
                     Distance.FromKilometers(.5)));
             }
-
-
-            #endregion
+              await LoadPins();
         }
+
+        async Task LoadPins()
+        {
+            var ubicationsViewModel = UbicationsViewModel.GetInstance();
+            await ubicationsViewModel.LoadPines();
+            foreach (var pin in ubicationsViewModel.Pins)
+            {
+                MyMap.Pins.Add(pin);
+            }
+        }
+        #endregion
     }
 }

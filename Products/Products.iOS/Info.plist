@@ -32,11 +32,13 @@
 	<string>LaunchScreen</string>
 	<key>CFBundleName</key>
 	<string>Products</string>
-	<key>XSAppIconAssets</key>
-	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>NSCameraUsageDescription</key>
 	<string>NSPhotoLibraryUsageDescription</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Picture Picker uses photo library</string>
+	<key>XSLaunchImageAssets</key>
+	<string>Assets.xcassets/LaunchImage.launchimage</string>
+	<key>XSAppIconAssets</key>
+	<string>Assets.xcassets/AppIcon.appiconset</string>
 </dict>
 </plist>
