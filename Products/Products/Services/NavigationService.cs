@@ -67,6 +67,10 @@ namespace Products.Services
                     await Application.Current.MainPage.Navigation.PushAsync(
                         new NewCustomerView());
                     break;
+                case "LoginWithFacebook":
+                    await Application.Current.MainPage.Navigation.PushAsync(
+                        new LoginFacebookView());
+                    break;
 
             }
         }

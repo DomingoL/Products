@@ -9,6 +9,9 @@
 
             </infra:InstanceLocator>
 
+            <!-- Parameters -->
+            <x:String x:Key="URLAPI">http://productsapiis.azurewebsites.net</x:String>   
+
                    <!-- Colors -->
             <Color x:Key="MainColor">#1CA5B8</Color>
             <Color x:Key="FontColor">#012C40</Color>

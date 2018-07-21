@@ -135,6 +135,19 @@ namespace Products.ViewModels
             }
         }
 
+        public ICommand LoginWithFacebookComand
+        {
+            get
+            {
+                return new RelayCommand(LoginWithFacebook);
+            }
+        }
+
+        async void LoginWithFacebook()
+        {
+            await navigationService.NavigateOnLogin("LoginWithFacebook");
+        }
+
         async void RegisterNewUser()
         {
             MainViewModels.GetInstance().NewCustomer = new NewCustomerViewModel();
@@ -171,8 +184,11 @@ namespace Products.ViewModels
                 return;
             }
 
+            var urlAPI = Application.Current.Resources["URLAPI"].ToString();
+
+
             var response = await apiService.GetToken(
-                "http://productsapiis.azurewebsites.net", 
+                urlAPI,  
                 Email, 
                 Password);
 

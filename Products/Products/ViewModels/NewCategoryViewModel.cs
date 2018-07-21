@@ -7,6 +7,7 @@ namespace Products.ViewModels
     using GalaSoft.MvvmLight.Command;
     using Products.Services;
     using Models;
+    using Xamarin.Forms;
 
     public class NewCategoryViewModel : INotifyPropertyChanged
     {
@@ -115,8 +116,10 @@ namespace Products.ViewModels
 
             var mainViewModels = MainViewModels.GetInstance();
 
+            var urlAPI = Application.Current.Resources["URLAPI"].ToString();
+
             var response = await apiService.Post(
-                "http://productsapiis.azurewebsites.net",
+                urlAPI,
                 "/api",
                 "/Categories", 
                 mainViewModels.Token.TokenType, 
