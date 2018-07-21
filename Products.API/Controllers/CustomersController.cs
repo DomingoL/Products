@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -25,6 +26,65 @@ namespace Products.API.Controllers
         {
             return db.Customers;
         }
+
+        [HttpPost]
+        [Route("LoginFacebook")]
+        public async Task<IHttpActionResult> LoginFacebook(FacebookResponse profile)
+        {
+            try
+            {
+                var customer = await db.Customers
+                    .Where(c => c.Email == profile.Id)
+                    .FirstOrDefaultAsync();
+                if (customer == null)
+                {
+                    customer = new Customer
+                    {
+                        Email = profile.Id,
+                        FirstName = profile.FirstName,
+                        LastName = profile.LastName,
+                        CustomerType = 2,
+                        Password = profile.Id,
+                    };
+
+                    db.Customers.Add(customer);
+                    CreateUserASP(profile.Id, profile.Id);
+                }
+                else
+                {
+                    customer.FirstName = profile.FirstName;
+                    customer.LastName = profile.LastName;
+                    customer.Password = profile.Id;
+                    db.Entry(customer).State = EntityState.Modified;
+                }
+
+                await db.SaveChangesAsync();
+
+                return Ok(true);
+            }
+            catch (DbEntityValidationException e)
+            {
+                var message = string.Empty;
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    message = string.Format("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        message += string.Format("\n- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+
+                return BadRequest(message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
 
         // GET: api/Customers/5
         [ResponseType(typeof(Customer))]
