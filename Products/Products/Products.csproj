@@ -13,6 +13,8 @@
     <PackageReference Include="Xam.Plugin.Media" Version="4.0.1.1" />
     <PackageReference Include="Xamarin.Forms.Maps" Version="3.0.0.446417" />
     <PackageReference Include="Xam.Plugin.Geolocator" Version="4.5.0.6" />
+    <PackageReference Include="SQLite.Net-PCL" Version="3.1.1" />
+    <PackageReference Include="SQLiteNetExtensions" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,5 +29,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="View\CategoriesView.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="View\LoginFacebookView.xaml.cs">
+      <DependentUpon>LoginFacebookView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>
