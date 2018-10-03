@@ -77,6 +77,11 @@ namespace Products.ViewModels
             get;
             set;
         }
+        public SyncViewModel Sync
+        {
+            get;
+            set;
+        }
         #endregion
 
         #region Constructors

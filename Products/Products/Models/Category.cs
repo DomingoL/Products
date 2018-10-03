@@ -9,6 +9,8 @@ namespace Products.Models
     using ViewModels;
     using Services;
     using System.Threading.Tasks;
+    using SQLite.Net.Attributes;
+    using SQLiteNetExtensions.Attributes;
 
     public class Category
     {
@@ -18,10 +20,12 @@ namespace Products.Models
         #endregion
 
         #region Properties
+        [PrimaryKey]
         public int CategoryId { get; set; }
 
         public string Description { get; set; }
 
+        [OneToMany(CascadeOperations = CascadeOperation.All)]
         public List<Product> Products
         {
             get;

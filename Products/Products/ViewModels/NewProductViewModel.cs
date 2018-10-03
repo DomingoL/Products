@@ -19,6 +19,7 @@ namespace Products.ViewModels
         #endregion
 
         #region Services
+        DataService dataService;
         NavigationService navigationService;
         ApiService apiService;
         DialogService dialogService;
@@ -128,6 +129,7 @@ namespace Products.ViewModels
         #region Constructors
         public NewProductViewModel()
         {
+            dataService = new DataService();
             apiService = new ApiService();
             dialogService = new DialogService();
             navigationService = new NavigationService();
@@ -251,20 +253,6 @@ namespace Products.ViewModels
                 return;
             }
 
-            IsRunning = true;
-            IsEnabled = false;
-
-            var connection = await apiService.CheckConnection();
-            if (!connection.IsSuccess)
-            {
-                IsRunning = false;
-                IsEnabled = true;
-                await dialogService.ShowMessage(
-                    "Error",
-                    connection.Message);
-                return;
-            }
-
 
             byte[] imageArray = null;
             if (file != null)
@@ -285,7 +273,21 @@ namespace Products.ViewModels
                 Stock = stock,
             };
 
+            IsRunning = true;
+            IsEnabled = false;
 
+            var connection = await apiService.CheckConnection();
+            if (!connection.IsSuccess)
+            {
+                product.PendingToSave = true;
+                dataService.Insert(product);
+                await dialogService.ShowMessage(
+                    "Message",
+                    "The product was save to DB Local, don't forget to upload when to have connection to internet"
+                );
+            }
+            else
+            {
             var response = await apiService.Post(
                 "http://productsapiis.azurewebsites.net",
                 "/api",
@@ -305,6 +307,9 @@ namespace Products.ViewModels
             }
 
             product = (Product)response.Result;
+          
+            }
+          
             var productsViewModel = ProductsViewModel.GetInstance();
             productsViewModel.Add(product);
 

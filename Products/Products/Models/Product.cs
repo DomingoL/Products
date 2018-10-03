@@ -7,6 +7,8 @@ namespace Products.Models
     using GalaSoft.MvvmLight.Command;
     using Products.Services;
     using Products.ViewModels;
+    using SQLite.Net.Attributes;
+    using SQLiteNetExtensions.Attributes;
 
     public class Product
     {
@@ -16,9 +18,14 @@ namespace Products.Models
         #endregion
 
         #region Attributs
+        [PrimaryKey, AutoIncrement]
         public int ProductId { get; set; }
 
+        [ForeignKey(typeof(Category))]
         public int CategoryId { get; set; }
+
+        [ManyToOne]
+        public Category Category { get; set; }
 
         public string Description { get; set; }
 
@@ -38,6 +45,12 @@ namespace Products.Models
         {
             get;
             set;
+        }
+
+        public bool PendingToSave
+        {
+            get;
+            set; 
         }
 
         public string ImageFullPath

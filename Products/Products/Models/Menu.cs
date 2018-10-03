@@ -1,14 +1,23 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using Products.Services;
 using Products.ViewModels;
+using Xamarin.Forms;
 
 namespace Products.Models
 {
     public class Menu
     {
+
+        #region Services
+        ApiService apiService;
+        DialogService dialogService;
         NavigationService navigationService;
+        DataService dataService;
+        #endregion
+
 
         public string Icon
         {
@@ -28,6 +37,9 @@ namespace Products.Models
         #region Constructors
         public Menu()
         {
+            apiService = new ApiService();
+            dataService = new DataService();
+            dialogService = new DialogService();
             navigationService = new NavigationService();
         }
         #endregion
@@ -46,6 +58,9 @@ namespace Products.Models
             {
                 case "LoginView":
                     var mainViewModel = MainViewModels.GetInstance();
+                    mainViewModel.Token.IsRemembered = false;
+                    dataService.Update(mainViewModel.Token);
+                    mainViewModel.Login = new LoginViewModel();
                     navigationService.SetMainPage(PageName);
                     break;
                 case "UbicationsView":
@@ -53,8 +68,14 @@ namespace Products.Models
                         new UbicationsViewModel();
                     await navigationService.NavigateOnMaster(PageName);
                     break;
-            }
+                case "SyncView":
+                    MainViewModels.GetInstance().Sync =
+                                           new SyncViewModel();
+                    await navigationService.NavigateOnMaster(PageName);
+                    break;            }
         }
+
+
         #endregion
 
     }

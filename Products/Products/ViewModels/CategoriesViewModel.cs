@@ -31,6 +31,7 @@ namespace Products.ViewModels
         #region Services
         ApiService apiService;
         DialogService dialogService;
+        DataService dataService;
         #endregion
 
         #region Properties
@@ -98,6 +99,7 @@ namespace Products.ViewModels
             instance = this;
             dialogService = new DialogService();
             apiService = new ApiService();
+            dataService = new DataService();
             LoadCategories();
         }
         #endregion
@@ -186,37 +188,57 @@ namespace Products.ViewModels
             var connetion = await apiService.CheckConnection();
             if (!connetion.IsSuccess)
             {
-                await dialogService.ShowMessage(
-                    "Error",
-                    connetion.Message);
-                return;
+                categories = dataService.Get<Category>(true);
+                if (categories.Count == 0){
+                    await dialogService.ShowMessage(
+                       "Error",
+                       "No cuenta con internet y No hay ninguna categoria cargada.");
+                    return;
+                }
             }
-
-            var mainViewModel = MainViewModels.GetInstance();
-
-            var response = await apiService.GetList<Category>(
-               "http://productsapiis.azurewebsites.net",
-               "/api",
-                "/Categories",
-                mainViewModel.Token.TokenType,
-                mainViewModel.Token.AccessToken);
-
-            if (!response.IsSuccess)
+            else
             {
-                await dialogService.ShowMessage(
-                    "Error",
-                    response.Message);
-                return;
+                var mainViewModel = MainViewModels.GetInstance();
+
+                var response = await apiService.GetList<Category>(
+                   "http://productsapiis.azurewebsites.net",
+                   "/api",
+                    "/Categories",
+                    mainViewModel.Token.TokenType,
+                    mainViewModel.Token.AccessToken);
+
+                if (!response.IsSuccess)
+                {
+                    await dialogService.ShowMessage(
+                        "Error",
+                        response.Message);
+                    return;
+                }
+
+                categories = (List<Category>)response.Result;
+                SaveCategoriesOnDB();
             }
 
-            categories = (List<Category>)response.Result;
-            CategoriesList = new ObservableCollection<Category>(categories.OrderBy(c => c.Description));
+
+            // CategoriesList = new ObservableCollection<Category>(categories.OrderBy(c => c.Description));
+            Search();
             IsRefreshing = false;
         }
+        void SaveCategoriesOnDB()
+        {
+            dataService.DeleteAll<Category>();
+            foreach (var category in categories)
+            {
+                dataService.Insert(category);
+                dataService.Save(category.Products);
+            }
+
+        }
+
         #endregion
 
         #region Commands
-                public ICommand SearchCommand
+        public ICommand SearchCommand
         {
             get
             {

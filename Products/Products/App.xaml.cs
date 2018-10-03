@@ -16,6 +16,8 @@ namespace Products
         #region Services
         ApiService apiService;
         DialogService dialogService;
+        NavigationService navigationService;
+        DataService dataService;
         #endregion
 
         #region Properties
@@ -28,10 +30,25 @@ namespace Products
         {
             apiService = new ApiService();
             dialogService = new DialogService();
+            navigationService = new NavigationService();
+            dataService = new DataService();
 
             InitializeComponent();
 
-            MainPage = new NavigationPage(new LoginView());
+            var token = dataService.First<TokenResponse>(false);
+            if (token != null &&
+                token.IsRemembered &&
+                token.Expires > DateTime.Now)
+            {
+                var mainViewModel = MainViewModels.GetInstance();
+                mainViewModel.Token = token;
+                mainViewModel.Categories = new CategoriesViewModel();
+                navigationService.SetMainPage("MasterView");
+            }
+            else
+            {
+                navigationService.SetMainPage("LoginView");
+            }
 
         }
         #endregion

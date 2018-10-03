@@ -3,12 +3,13 @@ namespace Products.Models
 {
     using System;
     using Newtonsoft.Json;
+    using SQLite.Net.Attributes;
 
     public class TokenResponse
     {
         #region Properties
-      //  [PrimaryKey, AutoIncrement]
-      //  public int TokenResponseId { get; set; }
+        [PrimaryKey, AutoIncrement]
+        public int TokenResponseId { get; set; }
 
         [JsonProperty(PropertyName = "access_token")]
         public string AccessToken { get; set; }
@@ -45,10 +46,10 @@ namespace Products.Models
         #endregion
 
         #region Methods
-        //public override int GetHashCode()
-        //{
-        //    return TokenResponseId;
-        //}
+        public override int GetHashCode()
+        {
+            return TokenResponseId;
+        }
         #endregion
     }
 }

@@ -19,6 +19,7 @@ namespace Products.ViewModels
         NavigationService navigationService;
         ApiService apiService;
         DialogService dialogService;
+        DataService dataService;
         #endregion
 
         #region Attributes
@@ -110,7 +111,7 @@ namespace Products.ViewModels
         #region Constructors 
         public LoginViewModel()
         {
-           
+            dataService = new DataService();
             apiService = new ApiService();
             dialogService = new DialogService();
             navigationService = new NavigationService();
@@ -211,6 +212,9 @@ namespace Products.ViewModels
                     response.ErrorDescription);
                 return;
             }
+
+            response.IsRemembered = IsToggled;
+            dataService.DeleteAllAndInsert(response);
 
             var mainViewModel = MainViewModels.GetInstance();
             mainViewModel.Categories = new CategoriesViewModel();

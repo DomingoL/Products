@@ -55,6 +55,10 @@ namespace Products.Services
                     await App.Navigatior.PushAsync(
                         new UbicationsView());
                     break; 
+                case "SyncView":
+                    await App.Navigatior.PushAsync(
+                        new SyncView());
+                    break; 
 
             }
         }
