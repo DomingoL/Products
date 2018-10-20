@@ -79,6 +79,11 @@ namespace Products.ViewModels
         }
         public SyncViewModel Sync
         {
+            get; 
+            set;
+        }
+        public MyProfileViewModel MyProfile
+        {
             get;
             set;
         }

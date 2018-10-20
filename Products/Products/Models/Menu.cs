@@ -72,7 +72,13 @@ namespace Products.Models
                     MainViewModels.GetInstance().Sync =
                                            new SyncViewModel();
                     await navigationService.NavigateOnMaster(PageName);
-                    break;            }
+                    break;
+                case "MyProfileView":
+                    MainViewModels.GetInstance().MyProfile =
+                                           new MyProfileViewModel();
+                    await navigationService.NavigateOnMaster(PageName);
+                    break;
+            }
         }
 
 

@@ -214,6 +214,7 @@ namespace Products.ViewModels
             }
 
             response.IsRemembered = IsToggled;
+            response.Password = Password;
             dataService.DeleteAllAndInsert(response);
 
             var mainViewModel = MainViewModels.GetInstance();

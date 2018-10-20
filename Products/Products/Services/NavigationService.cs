@@ -58,7 +58,11 @@ namespace Products.Services
                 case "SyncView":
                     await App.Navigatior.PushAsync(
                         new SyncView());
-                    break; 
+                    break;
+                case "MyProfileView":
+                    await App.Navigatior.PushAsync(
+                        new MyProfileView());
+                    break;
 
             }
         }
