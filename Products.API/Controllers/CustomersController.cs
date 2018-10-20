@@ -16,6 +16,7 @@ namespace Products.API.Controllers
     using System.Threading.Tasks;
     using System.Web.Http;
     using System.Web.Http.Description;
+    [RoutePrefix("Api/Customer")]
     public class CustomersController : ApiController
     {
         private DataContext db = new DataContext();
